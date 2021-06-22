@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -17,16 +18,12 @@ namespace ASPWebNETCoreAPI
             var IPAdd = "";
 
 
-            var host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (var ip in host.AddressList)
-            {
-                if (ip.AddressFamily == AddressFamily.InterNetwork)
-                {
-                    IPAdd = ip.ToString();
-                }
-            }
+            IPAdd = GetIPAddress();
+            
+
             var res = "Not Found";
             res = IPAdd;
+          
             IpInfo ipInfo = new IpInfo();
             try
             {
@@ -44,6 +41,26 @@ namespace ASPWebNETCoreAPI
 
             res = IPAdd + " Details : " + ipInfo.Country + " : " + ipInfo.Region;
             return res;
+
+        }
+
+        static string GetIPAddress()
+        {
+            String address = "";
+            WebRequest request = WebRequest.Create("http://checkip.dyndns.org/");
+            using (WebResponse response = request.GetResponse())
+            using (StreamReader stream = new StreamReader(response.GetResponseStream()))
+            {
+                address = stream.ReadToEnd();
+            }
+
+            int first = address.IndexOf("Address: ") + 9;
+            int last = address.LastIndexOf("</body>");
+            address = address.Substring(first, last - first);
+
+            return address;
+
+
 
         }
     }

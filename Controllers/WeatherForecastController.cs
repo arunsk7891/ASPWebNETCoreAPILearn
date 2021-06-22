@@ -29,7 +29,7 @@ namespace ASPWebNETCoreAPI.Controllers
             _logger = logger;
         }
         public string Message { get; set; }
-
+        /*
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
@@ -42,10 +42,11 @@ namespace ASPWebNETCoreAPI.Controllers
             })
             .ToArray();
         }
-
-        // GET /WeatherForecast/id
-        [HttpGet("{id}", Name = nameof(GetWeatherForecastById))]
-        public IActionResult GetWeatherForecastById([FromBody] int id)
+        */
+        // GET api/WeatherForecast/id
+        //[HttpGet("{id}", Name = nameof(GetWeatherForecastById))]
+        [HttpGet("{id}")]
+        public IActionResult GetWeatherForecastById([FromForm] int id)
         {
 
             string res = id.ToString();
