@@ -44,8 +44,8 @@ namespace ASPWebNETCoreAPI.Controllers
         }
 
         // GET /WeatherForecast/id
-        [HttpGet("{id}", Name = nameof(GetDetailIP))]
-        public IActionResult  GetDetailIP ([FromBody] int id)
+        [HttpGet("{id}", Name = nameof(GetWeatherForecastById))]
+        public IActionResult GetWeatherForecastById([FromBody] int id)
         {
 
             string res = id.ToString();
