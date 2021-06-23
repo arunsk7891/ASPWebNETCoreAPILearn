@@ -13,7 +13,7 @@ namespace ASPWebNETCoreAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class WeatherForecastController : ControllerBase
+    public class ProductController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
         {
@@ -22,9 +22,9 @@ namespace ASPWebNETCoreAPI.Controllers
 
 
 
-        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ILogger<ProductController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public ProductController(ILogger<ProductController> logger)
         {
             _logger = logger;
         }
@@ -43,10 +43,10 @@ namespace ASPWebNETCoreAPI.Controllers
             .ToArray();
         }
         */
-        // GET api/WeatherForecast/id
-        //[HttpGet("{id}", Name = nameof(GetWeatherForecastById))]
+        // GET api/ProductController/id
+        //[HttpGet("{id}", Name = nameof(GetProductControllerById))]
         [HttpGet("{id}")]
-        public IActionResult GetWeatherForecastById([FromForm] int id)
+        public IActionResult GetProductControllerById([FromForm] int id)
         {
 
             string res = id.ToString();

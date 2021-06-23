@@ -1,16 +1,15 @@
+using ASPWebNETCoreAPI.DBContexts;
+using ASPWebNETCoreAPI.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
+
+
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ASPWebNETCoreAPI
 {
@@ -28,7 +27,11 @@ namespace ASPWebNETCoreAPI
         {
 
             services.AddControllers();
-            services.AddSingleton<WeatherForecast, WeatherForecast>();
+            //services.AddSingleton<WeatherForecast, WeatherForecast>();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddDbContext<ProductContext>(o => o.UseSqlServer(Configuration.GetConnectionString("ProductDB")));
+            services.AddTransient<IProductRepository, ProductRepository>();
+
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v2", new Microsoft.OpenApi.Models.OpenApiInfo
