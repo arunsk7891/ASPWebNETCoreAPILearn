@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ASPWebNETCoreAPI.Models;
+using ASPWebNETCoreAPI.Repository;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
@@ -8,6 +10,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace ASPWebNETCoreAPI.Controllers
 {
@@ -15,13 +18,14 @@ namespace ASPWebNETCoreAPI.Controllers
     [Route("api/[controller]")]
     public class ProductController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
+      
+
+
+        private readonly IProductRepository _productRepository;
+        public ProductController(IProductRepository productRepository)
         {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
-
-
+            _productRepository = productRepository;
+        }
         private readonly ILogger<ProductController> _logger;
 
         public ProductController(ILogger<ProductController> logger)
@@ -43,7 +47,17 @@ namespace ASPWebNETCoreAPI.Controllers
             .ToArray();
         }
         */
-        // GET api/ProductController/id
+
+        // GET: api/Product
+        [HttpGet]
+        public IActionResult Get()
+        {
+            var products = _productRepository.GetProducts();
+            return new OkObjectResult(products);
+        }
+
+
+
         //[HttpGet("{id}", Name = nameof(GetProductControllerById))]
         [HttpGet("{id}")]
         public IActionResult GetProductControllerById([FromForm] int id)
@@ -59,6 +73,7 @@ namespace ASPWebNETCoreAPI.Controllers
 
         }
 
+        /*
         [HttpPut("{id}")]
         public static string Get([FromBody] string userId, string productId, int quantity)
         {
@@ -69,8 +84,24 @@ namespace ASPWebNETCoreAPI.Controllers
 
             return sum;
         }
+        */
 
 
+        // PUT: api/Product/5
+        [HttpPut]
+        public IActionResult Put([FromBody] Product product)
+        {
+            if (product != null)
+            {
+                using (var scope = new TransactionScope())
+                {
+                    _productRepository.UpdateProduct(product);
+                    scope.Complete();
+                    return new OkResult();
+                }
+            }
+            return new NoContentResult();
+        }
 
 
     }

@@ -27,8 +27,9 @@ namespace ASPWebNETCoreAPI
         {
 
             services.AddControllers();
+           
             //services.AddSingleton<WeatherForecast, WeatherForecast>();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+           services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<ProductContext>(o => o.UseSqlServer(Configuration.GetConnectionString("ProductDB")));
             services.AddTransient<IProductRepository, ProductRepository>();
 
@@ -61,18 +62,26 @@ namespace ASPWebNETCoreAPI
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("./v2/swagger.json", "ASPWebNETCoreAPI v2"));
             }
+            else
+            {
+                app.UseHsts();
+            }
 
             app.UseHttpsRedirection();
+            
 
             app.UseRouting();
 
-            app.UseAuthorization();
+           // app.UseAuthorization();
+            
 
-
+        
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+          
+
         }
     }
 }
