@@ -14,8 +14,8 @@ using System.Transactions;
 
 namespace ASPWebNETCoreAPI.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
+    [ApiController]
     public class ProductController : ControllerBase
     {
       
@@ -27,11 +27,13 @@ namespace ASPWebNETCoreAPI.Controllers
             _productRepository = productRepository;
         }
         private readonly ILogger<ProductController> _logger;
-
+        /*
         public ProductController(ILogger<ProductController> logger)
         {
             _logger = logger;
         }
+
+        */
         public string Message { get; set; }
         /*
         [HttpGet]
@@ -91,6 +93,7 @@ namespace ASPWebNETCoreAPI.Controllers
         [HttpPut]
         public IActionResult Put([FromBody] Product product)
         {
+            
             if (product != null)
             {
                 using (var scope = new TransactionScope())

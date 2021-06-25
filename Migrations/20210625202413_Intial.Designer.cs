@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ASPWebNETCoreAPI.Migrations
 {
     [DbContext(typeof(ProductContext))]
-    [Migration("20210623214518_IntialCreateDB")]
-    partial class IntialCreateDB
+    [Migration("20210625202413_Intial")]
+    partial class Intial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -74,8 +74,8 @@ namespace ASPWebNETCoreAPI.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

@@ -33,7 +33,40 @@ namespace ASPWebNETCoreAPI.DBContexts
                     Description = "Grocery Items",
                 }
             );
+
+            modelBuilder.Entity<Product>().HasData(
+                new Product
+                {
+                    Id = 1,
+                    Name = "Apple",
+                    Description = "Buy Apple",
+                    Price = 100,
+                    CategoryId = 5
+
+                },
+                new Product
+                {
+                    Id = 1,
+                    Name = "Orange",
+                    Description = "Buy Orange",
+                    Price = 100,
+                    CategoryId = 6
+                },
+                new Product
+                {
+                    Id = 1,
+                    Name = "Banana",
+                    Description = "Buy Banana",
+                    Price = 100,
+                    CategoryId = 7
+                }
+            );;
+
+
         }
+
+
+
 
     }
 }
