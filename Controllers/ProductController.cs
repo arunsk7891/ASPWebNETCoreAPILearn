@@ -107,6 +107,23 @@ namespace ASPWebNETCoreAPI.Controllers
         }
 
 
+
+        // POST: api/Product
+        [HttpPost]
+        public IActionResult Post([FromBody] Product product)
+        {
+            using (var scope = new TransactionScope())
+            {
+                _productRepository.InsertProduct(product);
+                scope.Complete();
+                return CreatedAtAction(nameof(Get), new { id = product.Id }, product);
+            }
+        }
+
+
+
+
+
     }
 }
 
