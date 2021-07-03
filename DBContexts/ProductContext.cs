@@ -46,7 +46,7 @@ namespace ASPWebNETCoreAPI.DBContexts
                 },
                 new Product
                 {
-                    Id = 1,
+                    Id = 2,
                     Name = "Orange",
                     Description = "Buy Orange",
                     Price = 100,
@@ -54,7 +54,7 @@ namespace ASPWebNETCoreAPI.DBContexts
                 },
                 new Product
                 {
-                    Id = 1,
+                    Id = 3,
                     Name = "Banana",
                     Description = "Buy Banana",
                     Price = 100,
